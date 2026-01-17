@@ -1,12 +1,12 @@
 /* Reset & Base */
 :root {
-    --primary-color: #e67e22;
-    --primary-dark: #d35400;
-    --secondary-color: #1b2631;
-    --text-color: #2c3e50;
-    --bg-light: #fdf5ef;
+    --primary-color: #00e5ff;
+    --primary-dark: #00bcd4;
+    --secondary-color: #11152b;
+    --text-color: #e5e9ff;
+    --bg-light: #050510;
     --white: #ffffff;
-    --gray: #7f8c8d;
+    --gray: #9fa4c7;
     --transition: all 0.3s ease;
 }
 
@@ -24,12 +24,12 @@ body {
     font-family: 'Lato', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background-color: var(--white);
+    background-color: var(--bg-light);
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
-    color: var(--secondary-color);
+    color: var(--text-color);
     margin-bottom: 1rem;
 }
 
@@ -66,12 +66,14 @@ img {
 
 .btn-primary {
     background-color: var(--primary-color);
-    color: var(--white);
+    color: var(--bg-light);
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.45);
 }
 
 .btn-primary:hover {
     background-color: var(--primary-dark);
     transform: translateY(-2px);
+    box-shadow: 0 0 26px rgba(0, 229, 255, 0.7);
 }
 
 .section-header {
@@ -103,8 +105,8 @@ section {
 
 /* Navigation */
 .navbar {
-    background-color: var(--white);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: rgba(5, 5, 16, 0.95);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
     position: fixed;
     width: 100%;
     top: 0;
@@ -171,7 +173,7 @@ section {
 
 /* Hero Section */
 .hero {
-    background-color: var(--bg-light);
+    background: radial-gradient(circle at top left, #20284a 0, #050510 45%, #010206 100%);
     height: 100vh;
     display: flex;
     align-items: center;
@@ -212,7 +214,7 @@ section {
 
 /* About Section */
 .about {
-    background-color: var(--white);
+    background-color: #050510;
 }
 
 .about-container {
@@ -227,7 +229,7 @@ section {
 
 .about-img img {
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
 .about-text {
@@ -254,7 +256,7 @@ section {
 .stats strong {
     display: block;
     font-size: 2rem;
-    color: var(--secondary-color);
+    color: var(--primary-color);
     font-family: 'Roboto', sans-serif;
 }
 
@@ -270,7 +272,7 @@ section {
 }
 
 .service-card {
-    background: var(--white);
+    background: #101325;
     padding: 30px;
     border-radius: 10px;
     text-align: center;
@@ -280,7 +282,7 @@ section {
 
 .service-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.7);
 }
 
 .service-card .icon {
@@ -295,7 +297,7 @@ section {
 
 /* Portfolio Section */
 .portfolio {
-    background-color: var(--white);
+    background-color: var(--bg-light);
 }
 
 .portfolio-grid {
@@ -309,7 +311,7 @@ section {
     overflow: hidden;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.7);
 }
 
 .portfolio-item img {
@@ -352,7 +354,7 @@ section {
 
 .contact-wrapper {
     display: flex;
-    background: var(--white);
+    background: #101325;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
@@ -396,7 +398,7 @@ section {
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #2c3158;
     border-radius: 5px;
     font-family: 'Lato', sans-serif;
     transition: var(--transition);
@@ -406,6 +408,7 @@ section {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
 }
 
 .form-row {
@@ -487,17 +490,17 @@ footer {
 }
 
 .footer-links a {
-    color: #bdc3c7;
+    color: #9fa4c7;
     margin: 0 10px;
     font-size: 0.9rem;
 }
 
 .footer-links a:hover {
-    color: var(--white);
+    color: var(--primary-color);
 }
 
 .copyright {
-    color: #7f8c8d;
+    color: #9fa4c7;
     font-size: 0.8rem;
     margin-top: 20px;
     border-top: 1px solid #34495e;
@@ -520,7 +523,7 @@ footer {
 
 .content-section {
     padding: 60px 0;
-    background-color: var(--white);
+    background-color: #050510;
 }
 
 .legal-block {
@@ -531,7 +534,7 @@ footer {
     font-size: 1.5rem;
     color: var(--primary-color);
     margin-bottom: 15px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #20264a;
     padding-bottom: 10px;
 }
 
