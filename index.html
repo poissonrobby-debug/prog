@@ -162,16 +162,63 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="nom" placeholder="Votre Nom" required>
+                <form
+                    id="contact-form"
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    data-netlify-honeypot="bot-field"
+                    class="contact-form"
+                >
+                    <input type="hidden" name="form-name" value="contact">
+
+                    <div class="hidden-field" aria-hidden="true">
+                        <label>Ne pas remplir ce champ :
+                            <input name="bot-field" type="text" tabindex="-1" autocomplete="off">
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" placeholder="Votre Email" required>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prenom">Prénom</label>
+                            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <textarea id="message" rows="5" placeholder="Votre Message" required></textarea>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="votre.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone">Téléphone</label>
+                            <input
+                                type="tel"
+                                id="telephone"
+                                name="telephone"
+                                placeholder="+33 6 12 34 56 78"
+                                pattern="^[0-9+()\\s-]{6,}$"
+                                required
+                            >
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="sujet">Sujet</label>
+                        <input type="text" id="sujet" name="sujet" placeholder="Objet de votre demande" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Décrivez votre projet" required></textarea>
+                    </div>
+
+                    <p id="form-status" class="form-status" aria-live="polite"></p>
+
                     <button type="submit" class="btn btn-primary">Envoyer le message</button>
                 </form>
             </div>
@@ -198,13 +245,99 @@
         </div>
     </footer>
 
-    <!-- Script pour le menu mobile -->
+    <!-- Script pour le menu mobile et le formulaire Netlify -->
     <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            const form = document.getElementById('contact-form');
+            const statusEl = document.getElementById('form-status');
+            const MAX_MESSAGES = 10;
+
+            function getEmailCountKey(email) {
+                return 'webpro_contact_count_' + email.toLowerCase();
+            }
+
+            function getEmailCount(email) {
+                try {
+                    const raw = localStorage.getItem(getEmailCountKey(email));
+                    return raw ? parseInt(raw, 10) || 0 : 0;
+                } catch (e) {
+                    return 0;
+                }
+            }
+
+            function setEmailCount(email, count) {
+                try {
+                    localStorage.setItem(getEmailCountKey(email), String(count));
+                } catch (e) {
+                }
+            }
+
+            function showStatus(message, type) {
+                if (!statusEl) return;
+                statusEl.textContent = message;
+                statusEl.classList.remove('success', 'error');
+                if (type) {
+                    statusEl.classList.add(type);
+                }
+            }
+
+            if (form) {
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault();
+
+                    const emailInput = form.querySelector('input[name="email"]');
+                    if (!emailInput) {
+                        form.submit();
+                        return;
+                    }
+
+                    const email = emailInput.value.trim().toLowerCase();
+
+                    if (!email) {
+                        showStatus('Veuillez renseigner une adresse email valide.', 'error');
+                        emailInput.focus();
+                        return;
+                    }
+
+                    if (!form.checkValidity()) {
+                        showStatus('Merci de compléter correctement tous les champs obligatoires.', 'error');
+                        form.reportValidity();
+                        return;
+                    }
+
+                    const currentCount = getEmailCount(email);
+                    if (currentCount >= MAX_MESSAGES) {
+                        showStatus('Vous avez déjà envoyé le nombre maximum de messages avec cette adresse email.', 'error');
+                        return;
+                    }
+
+                    showStatus('Envoi en cours...', 'info');
+
+                    const formData = new FormData(form);
+
+                    fetch(form.getAttribute('action') || '/', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(() => {
+                        setEmailCount(email, currentCount + 1);
+                        showStatus('Merci, votre message a bien été envoyé. Nous vous répondrons rapidement.', 'success');
+                        form.reset();
+                    })
+                    .catch(() => {
+                        showStatus('Une erreur est survenue lors de l’envoi. Merci de réessayer plus tard.', 'error');
+                    });
+                });
+            }
         });
     </script>
 </body>

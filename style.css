@@ -408,6 +408,40 @@ section {
     border-color: var(--primary-color);
 }
 
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.hidden-field {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.form-status {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    min-height: 1.2em;
+}
+
+.form-status.success {
+    color: #27ae60;
+}
+
+.form-status.error {
+    color: #c0392b;
+}
+
+.form-status.info {
+    color: var(--gray);
+}
+
 /* Footer */
 footer {
     background-color: var(--secondary-color);
