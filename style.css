@@ -127,11 +127,11 @@ section {
     font-size: 1.8rem;
     font-weight: 900;
     font-family: 'Roboto', sans-serif;
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .logo span {
-    color: var(--primary-color);
+    color: var(--white);
 }
 
 .nav-links {
@@ -467,7 +467,7 @@ footer {
 }
 
 .footer-logo span {
-    color: var(--primary-color);
+    color: var(--white);
 }
 
 .social-links {
